@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070605">
+<title>ZEDSOURCEDIT — Plugged By Zed</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+:root{--bg:#070605;--panel:#12100d;--cream:#f2e6d3;--tan:#c88e50;--muted:#9b9185;--line:rgba(255,255,255,.1)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:Inter,Arial,sans-serif}
+a{text-decoration:none;color:inherit}.wrap{width:min(1180px,90%);margin:auto}
+nav{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(7,6,5,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:68px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:900;letter-spacing:.15em;font-size:13px}
+.nav a{border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:10px;font-weight:900}
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:110px 0 70px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:650px;height:650px;border-radius:50%;background:rgba(166,101,40,.13);filter:blur(120px);top:15%;left:50%;transform:translateX(-50%)}
+.hero>*{position:relative}.logo{width:min(820px,95vw);height:auto;display:block;margin:0 auto 32px;filter:drop-shadow(0 25px 35px #000)}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:9px;font-weight:900;letter-spacing:.18em;margin-bottom:17px}
+h1{font-size:clamp(40px,7vw,76px);line-height:.94;letter-spacing:-.065em}
+.hero p{max-width:620px;margin:18px auto 28px;color:var(--muted);font-size:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 21px;border-radius:12px;background:var(--cream);color:#080706;font-size:11px;font-weight:900;margin:4px}
+.btn.alt{background:transparent;color:var(--cream);border:1px solid var(--line)}
+section{padding:95px 0}.head{margin-bottom:32px}.label{font-size:9px;font-weight:900;letter-spacing:.2em;color:#a99c8b}
+h2{font-size:clamp(34px,5vw,57px);letter-spacing:-.06em;line-height:1;margin-top:7px}
+.intro{color:var(--muted);font-size:13px;max-width:600px;margin-top:12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{min-height:330px;border:1px solid var(--line);border-radius:20px;background:#0e0d0b;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.photo{height:220px;background:linear-gradient(145deg,#18140f,#0b0a08);display:grid;place-items:center;overflow:hidden;position:relative}
+.photo img{width:100%;height:100%;object-fit:cover;display:none}
+.photo.has-image img{display:block}.photo.has-image .placeholder{display:none}
+.placeholder{text-align:center;color:#5e574e;font-size:11px;font-weight:800;letter-spacing:.1em}
+.info{padding:19px}.info h3{font-size:20px}.info p{font-size:11px;color:var(--muted);margin-top:5px}
+.admin-tools{display:none;gap:7px;margin-top:12px}.admin .admin-tools{display:flex}
+.upload,.remove{border:1px solid var(--line);background:#171410;color:var(--cream);border-radius:8px;padding:8px 10px;font-size:9px;font-weight:900;cursor:pointer}
+.upload:hover,.remove:hover{border-color:var(--tan)}
+input[type=file]{display:none}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.step{padding:25px 20px 15px 0;border-right:1px solid var(--line)}.step:not(:first-child){padding-left:20px}
+.step:last-child{border-right:0}.step small{color:#82786c;font-weight:900;letter-spacing:.12em}.step h3{font-size:20px;margin:10px 0 6px}.step p{font-size:11px;color:var(--muted);line-height:1.7}
+.cta{border:1px solid rgba(200,142,80,.25);border-radius:26px;padding:70px 20px;text-align:center;background:radial-gradient(circle at center,rgba(174,110,48,.14),transparent 58%),#0d0c0a}
+.cta h2{font-size:clamp(38px,6vw,68px)}.cta p{color:var(--muted);font-size:13px;max-width:530px;margin:14px auto 24px}
+footer{border-top:1px solid var(--line);padding:27px 0;color:#69635c;font-size:9px;letter-spacing:.08em}.foot{display:flex;justify-content:space-between;gap:10px}
+#login{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);z-index:100;display:none;place-items:center;padding:20px}
+.login-box{width:min(380px,100%);background:#11100d;border:1px solid var(--line);border-radius:18px;padding:25px}
+.login-box h3{font-size:23px}.login-box p{font-size:11px;color:var(--muted);margin:7px 0 16px}
+.login-box input{width:100%;padding:13px;border-radius:9px;border:1px solid var(--line);background:#080706;color:var(--cream);outline:none}
+.login-actions{margin-top:10px;display:flex;gap:8px}.login-actions button{flex:1;padding:12px;border-radius:9px;border:0;font-weight:900;cursor:pointer}.enter{background:var(--cream)}.cancel{background:#201c17;color:var(--cream)}
+#owner{position:fixed;right:15px;bottom:15px;z-index:30;border:1px solid var(--line);background:#12100d;color:#777;padding:8px 10px;border-radius:9px;font-size:9px;font-weight:800;opacity:.35;cursor:pointer}
+#owner:hover{opacity:1}.admin-banner{display:none;position:fixed;top:68px;left:0;right:0;z-index:19;background:#17120d;text-align:center;padding:7px;font-size:9px;color:#cda06b;font-weight:800}.admin .admin-banner{display:block}
+@media(max-width:760px){.grid,.steps{grid-template-columns:1fr}.card{min-height:290px}.photo{height:205px}.step,.step:not(:first-child){padding:22px 0;border-right:0;border-bottom:1px solid var(--line)}.step:last-child{border-bottom:0}.foot{display:block}.foot span{display:block;margin:5px 0}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap nav"><div class="brand">ZEDSOURCEDIT</div><a href="https://www.snapchat.com/add/zedgonecler" target="_blank">SNAPCHAT ↗</a></div></nav>
+<div class="admin-banner">OWNER MODE — YOU CAN ADD OR REMOVE PRODUCT PHOTOS</div>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" id="mainLogo" alt="Plugged By Zed">
+    <div class="pill">PLUGGED BY ZED • SOURCE WHAT YOU WANT</div>
+    <h1>Your next piece<br>starts here.</h1>
+    <p>Tracksuits, trainers, designer pieces and more. Tell me what you're looking for and I'll check what I can source.</p>
+    <a class="btn" href="https://www.snapchat.com/add/zedgonecler" target="_blank">MESSAGE @ZEDGONECLER →</a>
+    <a class="btn alt" href="#products">VIEW SOURCED ITEMS</a>
+  </div>
+</header>
+
+<section id="products">
+<div class="wrap">
+  <div class="head"><div class="label">LATEST SOURCED</div><h2>Available pieces.</h2><p class="intro">Photos can be added by the owner. Tap an item to see the current piece.</p></div>
+  <div class="grid" id="productGrid"></div>
+</div>
+</section>
+
+<section><div class="wrap">
+  <div class="head"><div class="label">HOW IT WORKS</div><h2>Simple. Direct. Sorted.</h2></div>
+  <div class="steps">
+    <div class="step"><small>01 / SEND</small><h3>Show me what you want</h3><p>Send a photo, product name, size or description through Snapchat.</p></div>
+    <div class="step"><small>02 / SOURCE</small><h3>I'll check it</h3><p>I'll check what I can source and come back with the available options.</p></div>
+    <div class="step"><small>03 / ORDER</small><h3>Get in touch</h3><p>Once you've chosen an item, we'll sort out the next steps directly.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap"><div class="cta">
+  <div class="label">READY?</div><h2>Got something in mind?</h2>
+  <p>Send over the item you're looking for and I'll see what I can source.</p>
+  <a class="btn" href="https://www.snapchat.com/add/zedgonecler" target="_blank">OPEN SNAPCHAT →</a>
+</div></div></section>
+
+<footer><div class="wrap foot"><span>© 2026 ZEDSOURCEDIT</span><span>PLUGGED BY ZED • @ZEDGONECLER</span></div></footer>
+
+<button id="owner">OWNER</button>
+
+<div id="login">
+ <div class="login-box">
+  <h3>Owner access</h3>
+  <p>Enter your owner PIN to manage product photos on this device.</p>
+  <input id="pin" type="password" placeholder="Owner PIN" autocomplete="off">
+  <div class="login-actions"><button class="cancel" onclick="closeLogin()">CANCEL</button><button class="enter" onclick="login()">ENTER</button></div>
+ </div>
+</div>
+
+<script>
+/*
+  PHOTO MANAGEMENT
+  - Photos are saved in this browser's localStorage on this device.
+  - Owner PIN is set below. Change it before using the site.
+  - This is convenient for a local/static site, NOT secure authentication for a public business site.
+*/
+const OWNER_PIN = "ZED2026";
+
+const categories = [
+  ["Tracksuits","Add a tracksuit photo"],
+  ["Trainers","Add a trainer photo"],
+  ["Designer","Add a designer piece photo"],
+  ["Clothing","Add a clothing photo"],
+  ["Accessories","Add an accessory photo"],
+  ["New arrivals","Add your latest item"]
+];
+
+let products = JSON.parse(localStorage.getItem("zedsourcedit_products") || "null") ||
+  categories.map((x,i)=>({name:x[0],desc:x[1],image:""}));
+
+function save(){localStorage.setItem("zedsourcedit_products",JSON.stringify(products))}
+function render(){
+ const grid=document.getElementById("productGrid"); grid.innerHTML="";
+ products.forEach((p,i)=>{
+  const card=document.createElement("article"); card.className="card";
+  const imageClass=p.image?"photo has-image":"photo";
+  card.innerHTML=`<div class="${imageClass}">
+    <span class="placeholder">${p.image?"":"PHOTO COMING SOON"}</span>
+    <img alt="${p.name}">
+   </div>
+   <div class="info"><h3>${p.name}</h3><p>${p.desc}</p>
+   <div class="admin-tools">
+    <label class="upload">ADD / CHANGE PHOTO<input type="file" accept="image/*" onchange="addPhoto(${i},this)"></label>
+    <button class="remove" onclick="removePhoto(${i})">REMOVE</button>
+   </div></div>`;
+  if(p.image) card.querySelector("img").src=p.image;
+  grid.appendChild(card);
+ });
+}
+function addPhoto(i,input){
+ if(!input.files[0])return;
+ const reader=new FileReader();
+ reader.onload=e=>{products[i].image=e.target.result;save();render()};
+ reader.readAsDataURL(input.files[0]);
+}
+function removePhoto(i){products[i].image="";save();render()}
+function openLogin(){document.getElementById("login").style.display="grid";document.getElementById("pin").focus()}
+function closeLogin(){document.getElementById("login").style.display="none";document.getElementById("pin").value=""}
+function login(){
+ if(document.getElementById("pin").value===OWNER_PIN){
+  document.body.classList.add("admin");closeLogin();
+ }else{alert("Incorrect PIN")}
+}
+document.getElementById("owner").onclick=openLogin;
+document.getElementById("pin").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+
+/* The supplied logo is embedded as a placeholder until the actual image file is selected.
+   To use the exact uploaded logo permanently, save it as logo.png beside this HTML and
+   change the next line to: document.getElementById("mainLogo").src="logo.png"; */
+document.getElementById("mainLogo").style.display="none";
+
+render();
+</script>
+</body>
+</html>
